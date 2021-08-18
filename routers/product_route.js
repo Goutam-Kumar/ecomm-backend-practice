@@ -166,4 +166,19 @@ router.put('/makefeatured/:productId', async(req, res) => {
     }
 });
 
+//Delete a product 
+router.delete('/:productId', async (req, res) => {
+    try {
+        const product = await Product.findByIdAndRemove(req.params.productId);
+        if(product){
+            return res.status(200).json({success: true, message: 'Product deleted'});
+        }else{
+            return res.status(404).json({success: false, message: 'Product not deleted'});
+        } 
+    } catch (error) {
+        return res.status(404).json({success: false, message: error.message});
+    }
+    
+});
+
 module.exports = router;
