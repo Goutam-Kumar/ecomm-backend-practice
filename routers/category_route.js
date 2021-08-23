@@ -56,7 +56,7 @@ router.get('/:id', async (req, res) => {
     }
 })
 
-
+//update category
 router.put('/:id', async (req, res) => {
     try {
         const category = await Category.findByIdAndUpdate(
@@ -77,7 +77,20 @@ router.put('/:id', async (req, res) => {
     } catch (error) {
         return res.status(404).json({success: true, message: error.message});
     }
-    
-})
+});
+
+//total count
+router.get('/get/categoryCount', async (req, res) => {
+    try{
+        const categoryCount = await Category.countDocuments((count) => count)
+        if(!categoryCount){
+            return res.status(500).json({success: false, message: 'No Category!'});
+        }else{
+            return res.status(200).json({success: true, message: 'Category found!', categoryCount: categoryCount});
+        }
+    } catch(error){
+        return res.status(404).json({success: false, message: error.message});
+    }
+});
 
 module.exports = router;

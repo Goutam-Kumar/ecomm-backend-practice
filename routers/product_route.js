@@ -9,7 +9,7 @@ const {Category} = require('../models/category');
  *  API examples 
  */
 
-//Add product with category id
+//add product with category id
 router.post(`/`, async (req, res) => {
     try {
         const category = await Category.findById(req.body.category);
@@ -42,7 +42,6 @@ router.post(`/`, async (req, res) => {
         })
     })
 })
-
 
 //Get all product from database
 router.get(`/`, async (req, res) => {
@@ -125,7 +124,6 @@ router.put('/updatestock/:productId', async(req, res) => {
     }
 });
 
-
 //Update product category 
 router.put('/updatecategory/:productId', async(req, res) => {
     try {
@@ -179,6 +177,50 @@ router.delete('/:productId', async (req, res) => {
         return res.status(404).json({success: false, message: error.message});
     }
     
+});
+
+//Total count
+router.get('/get/productCount', async (req, res) => {
+    try{
+        const productCount = await Product.countDocuments((count) => count)
+        if(!productCount){
+            return res.status(500).json({success: false, message: 'No Product!'});
+        }else{
+            return res.status(200).json({success: true, message: 'Product found!', productCount: productCount});
+        }
+    } catch(error){
+        return res.status(404).json({success: false, message: error.message});
+    }
+});
+
+//get all featured product
+router.get('/get/featured', async (req, res) => {
+try {
+    const featuredProd = await Product.find({isFeatured : true});
+    if(!featuredProd){
+        return res.status(500).json({success: false, message: 'No featured Product!'});
+    }else{
+        return res.status(200).json({success: true, message: 'Featured product found!', featuredProd: featuredProd});
+    }
+} catch(error){
+    return res.status(404).json({success: false, message: error.message});
+}
+});
+
+// get last 5 featured product
+router.get('/get/featured/:countFeatured', async (req, res) => {
+    const count = req.params.countFeatured ? req.params.countFeatured : 0;
+try{
+    const featuredProd = await Product.find({isFeatured : true}).limit(parseInt(count));
+    if(!featuredProd){
+        return res.status(500).json({success: false, message: 'No featured Product!'});
+    }else{
+        return res.status(200).json({success: true, message: 'Featured product found!', featuredProd: featuredProd});
+    }
+}
+catch(error){
+    return res.status(404).json({success: false, message: error.message});
+}
 });
 
 module.exports = router;
