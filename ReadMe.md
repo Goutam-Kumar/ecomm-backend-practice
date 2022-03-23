@@ -8,7 +8,7 @@
 ### 4. To start server: 
     npm start
 ### 5. npm install express 
-    To install file server. Please look into app.js for express configuration
+    Please look into app.js for express configuration
 ### 6. API version control: 
     npm install dotenv
 ### 7. create a file named .env and configure as per example
@@ -39,7 +39,7 @@ For more reference [click this](https://www.npmjs.com/package/morgan).
 
 For details about mongoose schema [click this](https://mongoosejs.com/docs/guide.html).
 
-### 11. How to enable CORS is node.js: 
+### 11. How to enable CORS in node.js: 
 *CORS is basically permits other application to use my backend application*
 ##### To install CORS:
     npm install cors
