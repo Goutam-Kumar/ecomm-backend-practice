@@ -4,7 +4,7 @@
     npm install nodemon
 ### 3. Create a file named with your entry point
     Here it is app.js. 
-    Please llokinto the code for more under standing
+    Please look into the code for more under standing
 ### 4. To start server: 
     npm start
 ### 5. npm install express 
